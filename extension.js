@@ -245,7 +245,7 @@ function getHtml(jsCode, context, panel) {
     function setup() {
         canvas = createCanvas(1024, 1024);
 		canvas.parent('defaultCanvas');
-		canvas.style('width', '500px');          // ← 見た目は小さく
+		canvas.style('width', '500px');
 		canvas.style('height', '500px');
 		canvas.style('border-radius', '50%');  
 		translate(width / 2, height / 2);

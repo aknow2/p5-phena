@@ -1,65 +1,49 @@
-# p5-phena README
+# p5-phena
 
-This is the README for your extension "p5-phena". After writing up a brief description, we recommend including the following sections.
+Live-code phenakistoscopes with p5.js! **p5-phena** renders the sketch from your active editor inside a VS Code webview and layers intuitive controls on top of the preview. With code and output side by side, you can iterate on spinning animations in real time without breaking flow.
+
+![p5-phena preview](img/sample.gif)
+
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- **One-keystroke preview** – press `Ctrl+Enter` (`Cmd+Enter` on macOS) in a `.p5.js` file to open or refresh the live preview.
+- **Single preview tab** – the extension reuses the same webview, so your workspace stays tidy.
+- **Live controls** – adjust rotation speed (deg/sec) with a slider and tweak the p5 frame rate directly from the preview.
+- **Persistent settings** – rotation speed and FPS are remembered between runs.
+- **Download snapshots** – export the current canvas as a PNG with one click.
+- **Inline console** – view `console.log`, `console.warn`, and `console.error` output right below the preview.
+- **Editor-first workflow** – the command runs without stealing focus from the code editor.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- Visual Studio Code **1.105.0** or newer.
+- A sketch file saved with the `.p5.js` suffix (for example `sketch.p5.js`) so the keyboard shortcut and command targeting work as expected.
+
+The extension bundles p5.js from the official CDN; no local installation is required.
+
+## Usage
+
+1. Open a `.p5.js` sketch in VS Code.
+2. Hit `Ctrl+Enter` / `Cmd+Enter` or run **Run p5 phena** from the Command Palette.
+3. Interact with the preview controls to fine-tune playback speed or frame rate.
+4. Check the embedded console section for log output.
+5. Use the **Download Image** button to capture the current canvas.
+
+## Commands & Keybindings
+
+| Command        | Description              | Default Keybinding                         |
+|----------------|--------------------------|---------------------------------------------|
+| `p5-phena.run` | Run / refresh the preview | `Ctrl+Enter` / `Cmd+Enter` |
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+This extension does not contribute any VS Code settings at the moment. Rotation speed and frame rate preferences are stored automatically using `localStorage`.
 
 ---
 
-## Working with Markdown
+## Feedback & Contributions
 
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
+If you encounter an issue or have ideas for improvements, please open an issue or pull request on the project repository.
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Enjoy building with p5-phena! 🎨🧪
