@@ -118,6 +118,13 @@ function getHtml(jsCode, context, panel) {
 			return {};
 		}
 	};
+	const saveSettings = () => {
+		if (!window || !window.localStorage) return;
+		window.localStorage.setItem(
+			storageKey,
+			JSON.stringify({ rotationSpeed, refreshRate })
+		);
+	};
 
 	const storedSettings = loadSettings();
 	if (storedSettings) {
@@ -171,14 +178,6 @@ function getHtml(jsCode, context, panel) {
 				console.warn = originalWarn;
 			});
 		}
-
-		const saveSettings = () => {
-			if (!window || !window.localStorage) return;
-			window.localStorage.setItem(
-				storageKey,
-				JSON.stringify({ rotationSpeed, refreshRate })
-			);
-		};
 
 		if (rotationSlider && rotationValue) {
 			const applyRotationSpeed = (value) => {

@@ -1,5 +1,6 @@
 {
   "name": "p5-phena",
+  "publisher": "tmknym",
   "displayName": "phena",
   "description": "",
   "version": "0.0.1",
@@ -41,5 +42,9 @@
     "eslint": "^9.36.0",
     "@vscode/test-cli": "^0.0.11",
     "@vscode/test-electron": "^2.5.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-account/p5-phena"
   }
 }
