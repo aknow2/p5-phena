@@ -47,3 +47,7 @@ This extension does not contribute any VS Code settings at the moment. Rotation 
 If you encounter an issue or have ideas for improvements, please open an issue or pull request on the project repository.
 
 Enjoy building with p5-phena! 🎨🧪
+
+## License
+
+Released under the [GNU Lesser General Public License v3.0](./LICENSE).
