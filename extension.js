@@ -203,8 +203,8 @@ function getHtml(jsCode, context, panel) {
 					refreshValue.textContent = String(value);
 				}
 			};
-			const applyRefreshRate = () => {
-				const parsed = parseFloat(refreshInput.value);
+			const applyRefreshRate = (value) => {
+				const parsed = parseFloat(value);
 				if (!Number.isNaN(parsed) && parsed > 0) {
 					refreshRate = parsed;
 					refreshText(refreshRate);
@@ -216,10 +216,10 @@ function getHtml(jsCode, context, panel) {
 			};
 			refreshInput.value = String(refreshRate);
 			refreshText(refreshRate);
-			applyRefreshRate();
+			applyRefreshRate(refreshInput.value);
 			window.addEventListener('change', (event) => {
 				if (event.target === refreshInput) {
-					applyRefreshRate();
+					applyRefreshRate(refreshInput.value);
 				}
 			});
 			window.addEventListener('keyup', (event) => {
