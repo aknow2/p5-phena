@@ -106,6 +106,8 @@ function getHtml(jsCode, context, panel) {
 	let refreshRate = 30;
 	let rotationAngle = 0;
 	let logBuffer = [];
+	let applyFPS = () => {};
+	let applyRotationSpeed = () => {};
 	const maxLogLines = 300;
 	const storageKey = 'p5PhenaSettings';
 
@@ -180,12 +182,16 @@ function getHtml(jsCode, context, panel) {
 		}
 
 		if (rotationSlider && rotationValue) {
-			const applyRotationSpeed = (value) => {
+			applyRotationSpeed = (value) => {
 				const parsed = parseFloat(value);
 				if (!Number.isNaN(parsed)) {
 					rotationSpeed = parsed;
 					rotationValue.textContent = rotationSpeed.toFixed(0);
 					saveSettings();
+				}
+				const rotationStr = String(rotationSpeed);
+				if (rotationSlider.value !== rotationStr) {
+					rotationSlider.value = rotationStr;
 				}
 			};
 			rotationSlider.value = String(rotationSpeed);
@@ -203,7 +209,7 @@ function getHtml(jsCode, context, panel) {
 					refreshValue.textContent = String(value);
 				}
 			};
-			const applyRefreshRate = (value) => {
+			applyFPS = (value) => {
 				const parsed = parseFloat(value);
 				if (!Number.isNaN(parsed) && parsed > 0) {
 					refreshRate = parsed;
@@ -213,18 +219,22 @@ function getHtml(jsCode, context, panel) {
 					}
 					saveSettings();
 				}
+				const refreshStr = String(refreshRate);
+				if (refreshInput.value !== refreshStr) {
+					refreshInput.value = refreshStr;
+				}
 			};
 			refreshInput.value = String(refreshRate);
 			refreshText(refreshRate);
-			applyRefreshRate(refreshInput.value);
+			applyFPS(refreshInput.value);
 			window.addEventListener('change', (event) => {
 				if (event.target === refreshInput) {
-					applyRefreshRate(refreshInput.value);
+					applyFPS(refreshInput.value);
 				}
 			});
 			window.addEventListener('keyup', (event) => {
 				if (event.target === refreshInput && event.key === 'Enter') {
-					applyRefreshRate();
+					applyFPS(refreshInput.value);
 				}
 			});
 		}
