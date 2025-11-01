@@ -113,6 +113,54 @@
     const maxLogLines = 300;
     const storageKey = 'p5PhenaSettings';
 
+    const ph = {
+      speed(value) {
+        const parsed = parseFloat(value);
+        if (!Number.isNaN(parsed)) {
+          rotationSpeed = parsed;
+          applyRotationSpeed(rotationSpeed);
+        }
+      },
+      fps(value) {
+        const parsed = parseFloat(value);
+        if (!Number.isNaN(parsed) && parsed > 0) {
+          refreshRate = parsed;
+          applyFPS(refreshRate);
+        }
+      },
+      canvasSize(width, height) {
+        if (canvas) {
+          const w = parseInt(width, 10);
+          const h = parseInt(height, 10);
+          if (!Number.isNaN(w) && !Number.isNaN(h) && w > 0 && h > 0) {
+            canvas.style('width', w + 'px');
+            canvas.style('height', h + 'px');
+          }
+        }
+      },
+      waves : {
+        sin: Math.sin,
+        cos: Math.cos,
+        tan: Math.tan,
+        atan: Math.atan,
+        atan2: Math.atan2,
+        absSin: (a) => {
+          return abs(sin(a));
+        },
+        triangle: (a) => {
+          let t = (a / TWO_PI) % 1;
+          return 1 - 4 * abs(t - 0.5);
+        },
+        square: (a) => {
+          return (a % TWO_PI) < PI ? 1 : -1;
+        },
+        sawtooth: (a) => {
+          let t = (a / TWO_PI) % 1;
+          return 2 * t - 1; 
+        }
+      }
+    }
+
     const loadSettings = () => {
       try {
         if (!window || !window.localStorage) return null;
