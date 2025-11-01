@@ -11,6 +11,13 @@ function activate(context) {
     if (!editor) return;
 
     const jsCode = editor.document.getText();
+    const validation = validateUserCode(jsCode);
+    if (!validation.ok) {
+      vscode.window.showErrorMessage(
+        `p5-phena: Syntax error in sketch – ${validation.error.message || validation.error}`
+      );
+      return;
+    }
     if (currentPanel) {
       currentPanel.webview.html = getHtml(jsCode, context, currentPanel);
       currentPanel.reveal(undefined, true);
@@ -62,6 +69,17 @@ function generateNonce() {
 
 function sanitizeForScript(code) {
   return code.replace(/<\/script>/gi, '<\\/script>');
+}
+
+function validateUserCode(code) {
+  try {
+    // Use Function constructor to check the snippet as a function body, matching how we inject it.
+    // eslint-disable-next-line no-new-func
+    new Function(code);
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, error };
+  }
 }
 
 function deactivate() {}

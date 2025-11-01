@@ -67,6 +67,42 @@
   <pre id="consoleLog"></pre>
   <script nonce="{{nonce}}" src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.min.js"></script>
   <script nonce="{{nonce}}">
+      const consoleLog = document.getElementById('consoleLog');
+      if (consoleLog) {
+        appendLog = (message) => {
+          logBuffer.push(message);
+          if (logBuffer.length > maxLogLines) {
+            logBuffer = logBuffer.slice(-maxLogLines);
+          }
+          consoleLog.textContent = logBuffer.join('\\n');
+          consoleLog.scrollTop = consoleLog.scrollHeight;
+        };
+
+        const originalLog = console.log.bind(console);
+        const originalError = console.error.bind(console);
+        const originalWarn = console.warn.bind(console);
+
+        console.log = (...args) => {
+          originalLog(...args);
+          appendLog(args.map((value) => typeof value === 'string' ? value : JSON.stringify(value)).join(' '));
+        };
+        console.error = (...args) => {
+          originalError(...args);
+          appendLog('[Error] ' + args.map((value) => typeof value === 'string' ? value : JSON.stringify(value)).join(' '));
+        };
+        console.warn = (...args) => {
+          originalWarn(...args);
+          appendLog('[Warn] ' + args.map((value) => typeof value === 'string' ? value : JSON.stringify(value)).join(' '));
+        };
+
+        window.addEventListener('unload', () => {
+          console.log = originalLog;
+          console.error = originalError;
+          console.warn = originalWarn;
+        });
+      }
+  </script>
+  <script nonce="{{nonce}}">
     let canvas = null;
     let rotationSpeed = 180;
     let refreshRate = 30;
@@ -110,42 +146,8 @@
       const refreshInput = document.getElementById('refreshRate');
       const refreshValue = document.getElementById('refreshRateValue');
       const downloadButton = document.getElementById('downloadImage');
-      const consoleLog = document.getElementById('consoleLog');
       let appendLog = () => {};
 
-      if (consoleLog) {
-        appendLog = (message) => {
-          logBuffer.push(message);
-          if (logBuffer.length > maxLogLines) {
-            logBuffer = logBuffer.slice(-maxLogLines);
-          }
-          consoleLog.textContent = logBuffer.join('\\n');
-          consoleLog.scrollTop = consoleLog.scrollHeight;
-        };
-
-        const originalLog = console.log.bind(console);
-        const originalError = console.error.bind(console);
-        const originalWarn = console.warn.bind(console);
-
-        console.log = (...args) => {
-          originalLog(...args);
-          appendLog(args.map((value) => typeof value === 'string' ? value : JSON.stringify(value)).join(' '));
-        };
-        console.error = (...args) => {
-          originalError(...args);
-          appendLog('[Error] ' + args.map((value) => typeof value === 'string' ? value : JSON.stringify(value)).join(' '));
-        };
-        console.warn = (...args) => {
-          originalWarn(...args);
-          appendLog('[Warn] ' + args.map((value) => typeof value === 'string' ? value : JSON.stringify(value)).join(' '));
-        };
-
-        window.addEventListener('unload', () => {
-          console.log = originalLog;
-          console.error = originalError;
-          console.warn = originalWarn;
-        });
-      }
 
       if (rotationSlider && rotationValue) {
         applyRotationSpeed = (value) => {
